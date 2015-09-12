@@ -422,8 +422,20 @@ public class ShowcaseView extends RelativeLayout
         mEndButton.setVisibility(GONE);
     }
 
+    public void hideExtraButton(int button) {
+        if(button < numberOfExtraButtons) {
+            showcaseButtons[button].setVisibility(GONE);
+        }
+    }
+
     public void showButton() {
         mEndButton.setVisibility(VISIBLE);
+    }
+
+    public void showExtraButton(int button) {
+        if(button < numberOfExtraButtons) {
+            showcaseButtons[button].setVisibility(VISIBLE);
+        }
     }
 
     /**

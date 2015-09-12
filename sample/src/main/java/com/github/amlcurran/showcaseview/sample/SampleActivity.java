@@ -84,8 +84,16 @@ public class SampleActivity extends Activity implements View.OnClickListener,
         lps1.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         lps1.setMargins(margin, margin, margin, margin);
 
-//        sv.setExtraButtonText("new", 0);
+        sv.setExtraButtonText("new", 1);
         sv.setExtraButtonPosition(lps1, 0);
+
+        sv.overrideExtraButtonClick(new View.OnClickListener() {
+            public void onClick(View v) {
+                sv.showExtraButton(1);
+            }
+        }, 0);
+
+        sv.hideExtraButton(1);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
