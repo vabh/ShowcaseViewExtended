@@ -33,6 +33,8 @@ public interface ShowcaseViewApi {
 
     void setButtonPosition(RelativeLayout.LayoutParams layoutParams);
 
+    void setExtraButtonPosition(RelativeLayout.LayoutParams layoutParams, int button);
+
     void setHideOnTouchOutside(boolean hideOnTouch);
 
     void setBlocksTouches(boolean blockTouches);

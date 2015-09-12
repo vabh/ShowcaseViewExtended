@@ -147,7 +147,9 @@ public class ShowcaseView extends RelativeLayout
         if(numberOfExtraButtons > 0) {
             showcaseButtons = new Button[numberOfExtraButtons];
             for (int i = 0; i < numberOfExtraButtons; i++) {
-                showcaseButtons[i] = new Button(context);
+
+                showcaseButtons[i] = (Button) LayoutInflater.from(context).inflate(R.layout.showcase_extra_button, null);
+
                 String tag = showcaseButtonTag + i;
                 showcaseButtons[i].setId(tag.hashCode());
                 showcaseButtons[i].setTag(tag);
@@ -287,8 +289,10 @@ public class ShowcaseView extends RelativeLayout
     }
 
     public void setExtraButtonText(CharSequence text, int button) {
-        if (showcaseButtons[button] != null) {
+
+        if(button < numberOfExtraButtons) {
             showcaseButtons[button].setText(text);
+
         }
     }
 
@@ -583,7 +587,9 @@ public class ShowcaseView extends RelativeLayout
     }
 
     public void setExtraButtonPosition(RelativeLayout.LayoutParams layoutParams, int button) {
-        showcaseButtons[button].setLayoutParams(layoutParams);
+        if(button < numberOfExtraButtons) {
+            showcaseButtons[button].setLayoutParams(layoutParams);
+        }
     }
 
     /**

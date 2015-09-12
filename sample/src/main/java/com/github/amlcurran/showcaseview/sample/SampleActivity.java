@@ -79,10 +79,13 @@ public class SampleActivity extends Activity implements View.OnClickListener,
                 .build();
         sv.setButtonPosition(lps);
 
+        RelativeLayout.LayoutParams lps1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lps1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lps1.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lps1.setMargins(margin, margin, margin, margin);
 
-        sv.setExtraButtonText("new", 0);
-        lps.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        sv.setExtraButtonPosition(lps, 0);
+//        sv.setExtraButtonText("new", 0);
+        sv.setExtraButtonPosition(lps1, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
