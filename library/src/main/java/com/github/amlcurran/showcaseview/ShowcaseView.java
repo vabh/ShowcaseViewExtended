@@ -48,6 +48,12 @@ public class ShowcaseView extends RelativeLayout
     private static final int HOLO_BLUE = Color.parseColor("#33B5E5");
 
     private final Button mEndButton;
+
+    private Button showcaseButtons[];
+    private int numberOfExtraButtons = 0;
+    private final String showcaseButtonTag = "showcaseButton_";
+    private Context context;
+
     private final TextDrawer textDrawer;
     private final ShowcaseDrawer showcaseDrawer;
     private final ShowcaseAreaCalculator showcaseAreaCalculator;
@@ -81,6 +87,8 @@ public class ShowcaseView extends RelativeLayout
 
     protected ShowcaseView(Context context, AttributeSet attrs, int defStyle, boolean newStyle) {
         super(context, attrs, defStyle);
+
+        this.context = context;
 
         ApiUtils apiUtils = new ApiUtils();
         animationFactory = new AnimatorAnimationFactory();
@@ -131,6 +139,22 @@ public class ShowcaseView extends RelativeLayout
             addView(mEndButton);
         }
 
+    }
+
+    public void initExtraButtons(int numberOfExtraButtons){
+
+        this.numberOfExtraButtons = numberOfExtraButtons;
+        if(numberOfExtraButtons > 0) {
+            showcaseButtons = new Button[numberOfExtraButtons];
+            for (int i = 0; i < numberOfExtraButtons; i++) {
+                showcaseButtons[i] = new Button(context);
+                String tag = showcaseButtonTag + i;
+                showcaseButtons[i].setId(tag.hashCode());
+                showcaseButtons[i].setTag(tag);
+
+                addView(showcaseButtons[i]);
+            }
+        }
     }
 
     private boolean hasShot() {
@@ -234,6 +258,20 @@ public class ShowcaseView extends RelativeLayout
         hasCustomClickListener = true;
     }
 
+    public void overrideExtraButtonClick(OnClickListener listener, int button) {
+        if (shotStateStore.hasShot()) {
+            return;
+        }
+        if (showcaseButtons[button] != null) {
+            if (listener != null) {
+                showcaseButtons[button].setOnClickListener(listener);
+            } else {
+                showcaseButtons[button].setOnClickListener(hideOnClickListener);
+            }
+        }
+    }
+
+
     public void setOnShowcaseEventListener(OnShowcaseEventListener listener) {
         if (listener != null) {
             mEventListener = listener;
@@ -245,6 +283,12 @@ public class ShowcaseView extends RelativeLayout
     public void setButtonText(CharSequence text) {
         if (mEndButton != null) {
             mEndButton.setText(text);
+        }
+    }
+
+    public void setExtraButtonText(CharSequence text, int button) {
+        if (showcaseButtons[button] != null) {
+            showcaseButtons[button].setText(text);
         }
     }
 
@@ -466,6 +510,11 @@ public class ShowcaseView extends RelativeLayout
             return this;
         }
 
+        public Builder initExtraButtons(int number){
+            showcaseView.initExtraButtons(number);
+            return this;
+        }
+
         /**
          * Don't make the ShowcaseView block touches on itself. This doesn't
          * block touches in the showcased area.
@@ -531,6 +580,10 @@ public class ShowcaseView extends RelativeLayout
     @Override
     public void setButtonPosition(RelativeLayout.LayoutParams layoutParams) {
         mEndButton.setLayoutParams(layoutParams);
+    }
+
+    public void setExtraButtonPosition(RelativeLayout.LayoutParams layoutParams, int button) {
+        showcaseButtons[button].setLayoutParams(layoutParams);
     }
 
     /**

@@ -75,8 +75,14 @@ public class SampleActivity extends Activity implements View.OnClickListener,
                 .setContentText(R.string.showcase_main_message)
                 .setStyle(R.style.CustomShowcaseTheme2)
                 .setShowcaseEventListener(this)
+                .initExtraButtons(2)
                 .build();
         sv.setButtonPosition(lps);
+
+
+        sv.setExtraButtonText("new", 0);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        sv.setExtraButtonPosition(lps, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
