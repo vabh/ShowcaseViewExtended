@@ -14,6 +14,7 @@ new ShowcaseView.Builder(this)
     .setContentTitle("ShowcaseView")
     .setContentText("This is highlighting the Home button")
     .hideOnTouchOutside()
+    .initExtraButtons(2) // add two additional buttons
     .build();
 ~~~
 
